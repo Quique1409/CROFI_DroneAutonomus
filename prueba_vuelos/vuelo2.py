@@ -16,7 +16,7 @@ def simple_takeoff_land():
             cf = scf.cf
 
             thrust = 50000  # Puede ajustar según el limite
-            duration = 1.0  # Segundos de vuelo
+            duration = 2  # Segundos de vuelo
 
             print("Despegando...")
             start_time = time.time()
