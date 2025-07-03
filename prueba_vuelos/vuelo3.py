@@ -48,8 +48,12 @@ def move_linear_simple(scf):
 if __name__ == '__main__':
 
     cflib.crtp.init_drivers()
+
     with SyncCrazyflie(URI, cf=Crazyflie(rw_cache='./cache')) as scf:
-        scf.cf.param.add_update_callback(group="deck", name="bcFlow2", cb=take_off_simple)
+        scf.cf.param.add_update_callback(group="deck", name="bcFlow2", cb=param_deck_flow)
+        time.sleep(1)
+
+        scf.cf.param.request_param_update('deck.bcFlow2')
         time.sleep(1)
 
         if not deck_attached_event.wait(timeout=5):
@@ -59,5 +63,4 @@ if __name__ == '__main__':
         #Arm the Crazyflie
         scf.cf.platform.send_arming_request(True)
         time.sleep(1.0)
-
         take_off_simple(scf)
