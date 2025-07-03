@@ -49,7 +49,7 @@ def takeoff_hover_land():
             cf = scf.cf
 
             takeoff_thrust = 50000 # Puede ajustar según el limite || de 0 a 65535
-            hover_thrust = 45000 #Sustentación de ajuste (levita)
+            hover_thrust = 48000 #Sustentación de ajuste (levita)
             takeoof_time = 2    # Segundos de vuelo
             hover_time = 5      #Segundos de nivelación
 
@@ -76,4 +76,10 @@ def takeoff_hover_land():
 
 
 if __name__ == '__main__':
+
+    '''
+    Si se quiere cambiar de funcion (diferente rutina) cambiar la línea de abajo por:
+    simple_takeoff_land || solo vuela y aterriza lento
+    tekeoff_hover_land || se queda volando a un nivel
+    '''
     takeoff_hover_land()
