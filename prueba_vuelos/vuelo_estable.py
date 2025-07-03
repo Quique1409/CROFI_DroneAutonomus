@@ -5,9 +5,10 @@ from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 import time, threading
 
 '''
-    Variables que se pueden cambiar solo thrust y duration
+    Variables que se pueden cambiar solo thrust, duration, hover
     thrust se puede cambiar en un rango de 0 65535
-    duration cambia el tiempo que mantiene vuelo 
+    hover se puede cambiar en un rango de 0 65535
+    duration cambia el tiempo que mantiene vuelo tanto en el takeoff y en el hover
 '''
 
 URI = 'radio://0/70/2M/E7E7E7E7E5'
@@ -51,7 +52,7 @@ def takeoff_hover_land():
             takeoff_thrust = 50000 # Puede ajustar según el limite || de 0 a 65535
             hover_thrust = 48000 #Sustentación de ajuste (levita)
             takeoof_time = 2    # Segundos de vuelo
-            hover_time = 5      #Segundos de nivelación
+            hover_time = 2      #Segundos de nivelación
 
             #launch
             start_time = time.time()
@@ -87,7 +88,7 @@ if __name__ == '__main__':
 
     try:
         takeoff_hover_land() #Aquí se cambia.
-        
+
     except KeyboardInterrupt:
         abort_event.set()
         print("\n Aterrizaje de emergencia ACTIVADO")
