@@ -2,6 +2,7 @@ import time
 import cflib.crtp
 from cflib.crazyflie import Crazyflie
 from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
+import time, threading
 
 '''
     Variables que se pueden cambiar solo thrust y duration
@@ -11,8 +12,7 @@ from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 
 URI = 'radio://0/70/2M/E7E7E7E7E5'
 
-# Inicializa los drivers
-cflib.crtp.init_drivers()
+abort_event = threading.Event()
 
 def simple_takeoff_land():
     print("Conectando al Crazyflie...")
@@ -76,10 +76,19 @@ def takeoff_hover_land():
 
 
 if __name__ == '__main__':
-
     '''
     Si se quiere cambiar de funcion (diferente rutina) cambiar la línea de abajo por:
     simple_takeoff_land || solo vuela y aterriza lento
     tekeoff_hover_land || se queda volando a un nivel
     '''
-    takeoff_hover_land()
+    # Inicializa los drivers
+    cflib.crtp.init_drivers()
+
+
+    try:
+        takeoff_hover_land() #Aquí se cambia.
+        
+    except KeyboardInterrupt:
+        abort_event.set()
+        print("\n Aterrizaje de emergencia ACTIVADO")
+
