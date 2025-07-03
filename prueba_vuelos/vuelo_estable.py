@@ -49,23 +49,23 @@ def takeoff_hover_land():
             cf = scf.cf
 
             takeoff_thrust = 50000 # Puede ajustar según el limite || de 0 a 65535
-            hover_thrust = 38000 #Sustentación de ajuste (levita)
+            hover_thrust = 45000 #Sustentación de ajuste (levita)
             takeoof_time = 2    # Segundos de vuelo
-            hover_time = 5
+            hover_time = 5      #Segundos de nivelación
 
             #launch
-            t0= time.time()
-            while time.time() - t0 < takeoof_time:
+            start_time = time.time()
+            while time.time() - start_time < takeoof_time:
                 cf.commander.send_setpoint(0,0,0, takeoff_thrust)
                 time.sleep(0.1)
 
             #Hover
-            t0=time.time()
-            while time.time() - t0 < hover_time:
+            start_time =time.time()
+            while time.time() - start_time < hover_time:
                 cf.commander.send_setpoint(0,0,0, hover_thrust)
                 time.sleep(0.1)
 
-            for i in range(hover_thrust, 18000, -1000):
+            for i in range(hover_thrust, 20000, -1000):
                 cf.commander.send_setpoint(0,0,0,i)
                 time.sleep(0.1)
 
