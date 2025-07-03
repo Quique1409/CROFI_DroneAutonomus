@@ -14,9 +14,13 @@ def simple_takeoff_land():
         with SyncCrazyflie(URI, cf=Crazyflie(rw_cache='./cache')) as scf:
             print("Conectado.")
             cf = scf.cf
-
-            thrust = 50000  # Puede ajustar según el limite
-            duration = 2  # Segundos de vuelo
+            '''
+            Variables que se pueden cambiar solo thrust y duration
+            thrust se puede cambiar en un rango de 0 65535
+            duration cambia el tiempo que mantiene vuelo 
+            '''
+            thrust = 50000  # Puede ajustar según el limite || de 0 a 65535
+            duration = 3  # Segundos de vuelo
 
             print("Despegando...")
             start_time = time.time()

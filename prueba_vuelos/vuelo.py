@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.ERROR)
 def simple_connect():
 
     print("Connected :)")
-    time.sleep(3)
+    time.sleep(5)
     print("Disconnect :(")
 
 #Funtion main
