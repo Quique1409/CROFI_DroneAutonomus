@@ -16,15 +16,6 @@ uri = uri_helper.uri_from_env(default='radio://0/70/2M/E7E7E7E7E5')
 #ONly output errors from the logging framework
 logging.basicConfig(level=logging.ERROR)
 
-def param_stab_est_callback(name, value):
-    print('The crazyflie has parameter' + 'set at number:' + value)
-
-def simple_param_async(scf, groupstr, namestr):
-    cf = scf.cf
-    cf.param.add_update_callback(group=groupstr, name=namestr, cb=param_stab_est_callback)
-    full_name = groupstr+ "." *namestr
-    time.sleep(1)
-
 #Logging Asynchronous
 def log_stab_callback(timestamp, data, logconf):
     print('[%d][%s]: %s' % (timestamp, logconf.name, data))
@@ -65,10 +56,7 @@ if __name__=='__main__':
     lg_stab.add_variable('stabilizer.pitch', 'float')
     lg_stab.add_variable('stabilizer.yaw', 'float')
 
-    group = "stabilizer"
-    name = "estimator"
-
     with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
         
         #simple_connect()
-        simple_param_async(scf, group, name)
+        simple_log_async(scf, lg_stab)

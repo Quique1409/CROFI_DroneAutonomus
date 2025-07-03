@@ -16,30 +16,7 @@ uri = uri_helper.uri_from_env(default='radio://0/70/2M/E7E7E7E7E5')
 #ONly output errors from the logging framework
 logging.basicConfig(level=logging.ERROR)
 
-def param_stab_est_callback(name, value):
-    print('The crazyflie has parameter' + 'set at number:' + value)
 
-def simple_param_async(scf, groupstr, namestr):
-    cf = scf.cf
-    cf.param.add_update_callback(group=groupstr, name=namestr, cb=param_stab_est_callback)
-    full_name = groupstr+ "." *namestr
-    time.sleep(1)
-
-#Logging Asynchronous
-def log_stab_callback(timestamp, data, logconf):
-    print('[%d][%s]: %s' % (timestamp, logconf.name, data))
-
-
-def simple_log_async(scf, logconf):
-    cf = scf.cf
-    cf.log.add_config(logconf)
-    logconf.data_received_cb.add_callback(log_stab_callback)
-    logconf.start()
-    time.sleep(5)
-    logconf.stop()
-
-'''
-#Logging Synchronous
 def simple_log(scf, logconf):
     with SyncLogger(scf, lg_stab) as logger:
         for log_entry in logger:
@@ -49,7 +26,7 @@ def simple_log(scf, logconf):
             print('[%d][%s]: %s'%(timestamp, logconf_name, data))
 
             break
-            
+'''
 def simple_connect():
     print("Yeah, I'm connected! :D")
     time.sleep(3)
@@ -71,4 +48,4 @@ if __name__=='__main__':
     with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
         
         #simple_connect()
-        simple_param_async(scf, group, name)
+        simple_log(scf, lg_stab)
